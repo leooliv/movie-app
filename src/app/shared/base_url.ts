@@ -1,0 +1,1 @@
+export const baseURL = "https://api.themoviedb.org/3/search/movie?query=hobbit&api_key=1b5adf76a72a13bad99b8fc0c68cb085"
