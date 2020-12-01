@@ -1,26 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Movie } from '../../../shared/moviedb';
 import { MovieService } from '../../../shared/services/movie.service';
-import { HttpClient, HttpClientModule } from "@angular/common/http";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  public query: string;
+  public movies: Observable<Movie[]>;
+  public searchForm: FormGroup = this.formBuilder.group({
+    searchQuery: ['']
+  });
 
-  query: string;
-  movies: Observable<Movie[]>;
+  constructor(
+    private formBuilder: FormBuilder,
+    private movieService: MovieService
+  ) {}
 
-  constructor(private movieService: MovieService) { }
+  ngOnInit(): void {}
 
-  getMovieSearch() {
-    this.movies = this.movieService.getMovies(this.query)
+  public submit(): void {
+    const form = this.searchForm.getRawValue();
+    this.movieService.search(form.searchQuery).subscribe(res => {
+      console.log(res)
+    })
   }
-
-  ngOnInit(): void {
-  }
-
 }
