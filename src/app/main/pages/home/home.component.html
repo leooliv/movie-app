@@ -13,11 +13,23 @@
     </div>
     <button type="submit" class="btn btn-primary">Search</button>
   </form>
-  <div class="row">
-    <!-- <app-movie
-      *ngFor="let movie of movies | async"
-      [movie]="movie"
-      class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12">
-    </app-movie> -->
+</div>
+<div *ngIf="movies" class="row card-container">
+  <div *ngFor="let movie of movies"
+  class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-12">
+  <div class="card">
+    <img
+      src="https://image.tmdb.org/t/p/original{{movie.poster_path}}"
+      class="card-img-top"
+      alt="movie">
+    <div class="card-body">
+      <h5 class="card-title">
+        {{ movie.title }}
+      </h5>
+      <p class="card-text">
+        {{ movie.overview }}
+      </p>
+    </div>
+  </div>
   </div>
 </div>

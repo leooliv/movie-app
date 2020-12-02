@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Movie } from '../../../shared/moviedb';
+import { Movies } from '../../../shared/models/movie.model';
 import { MovieService } from '../../../shared/services/movie.service';
 
 @Component({
@@ -10,10 +10,9 @@ import { MovieService } from '../../../shared/services/movie.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public query: string;
-  public movies: Observable<Movie[]>;
+  public movies: Movies[];
   public searchForm: FormGroup = this.formBuilder.group({
-    searchQuery: ['']
+    searchQuery: [''],
   });
 
   constructor(
@@ -25,8 +24,9 @@ export class HomeComponent implements OnInit {
 
   public submit(): void {
     const form = this.searchForm.getRawValue();
-    this.movieService.search(form.searchQuery).subscribe(res => {
-      console.log(res)
-    })
+    this.movieService.search(form.searchQuery).subscribe((res: any[]) => {
+      console.log(res);
+      this.movies = res.results
+    });
   }
 }
