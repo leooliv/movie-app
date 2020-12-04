@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
 
   public submit(): void {
     const form = this.searchForm.getRawValue();
-    this.movieService.search(form.searchQuery).subscribe((res: any[]) => {
+    this.movieService.search(form.searchQuery).subscribe((res: any) => {
       console.log(res);
       this.movies = res.results
     });
